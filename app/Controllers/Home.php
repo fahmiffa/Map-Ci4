@@ -61,8 +61,7 @@ class Home extends BaseController
 
         $data = [
             'username' => $this->request->getPost('username'),
-            'email'   => $this->request->getVar('email'),
-            'status'=>0,
+            'email'   => $this->request->getVar('email'),            
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
         ];
 
@@ -93,37 +92,32 @@ class Home extends BaseController
 
         $user = $this->user->where('email', $this->request->getPost('email'))->first();
 
-        try {
-
-            if($user == null)
-            {                
-                throw new Exception("Email atau password tidak ditemukan");
-            }   
-
-            // validasi password
+        if($user == null)
+        {                            
+            return redirect()->back()->with('info','<p class="text-white">Email atau password tidak ditemukan</p>');
+        }   
+        else
+        {
             $pass = $user->password;
-            if(!password_verify($this->request->getPost('password'),$pass))
+            if(password_verify($this->request->getPost('password'),$pass))
             {
-                throw new Exception("Password atau email tidak ditemukan");
+                $session = $this->session;
+    
+                $newdata = [
+                    'username'  => $user->username,
+                    'email'     => $user->email,                    
+                    'is_loggedIn' => true,
+                ];
+                
+                $session->set($newdata);
+    
+                return redirect()->to('dashboard');                
             }
-            $session = $this->session;
-
-            $newdata = [
-                'username'  => $user->username,
-                'email'     => $user->email,
-                'role'      => $user->role,
-                'is_loggedIn' => true,
-            ];
-            
-            $session->set($newdata);
-
-            return redirect()->to('dashboard');
-            
-
-        } catch (Exception $e) {            
-            return redirect()->back()->with('info','<p class="text-white">'.$e->getMessage().'</p>');
+            else
+            {
+                return redirect()->back()->with('info','<p class="text-white">Password atau email tidak ditemukan</p>');
+            }
         }
-        
  
     }
 
