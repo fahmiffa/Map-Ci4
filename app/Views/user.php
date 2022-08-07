@@ -34,7 +34,8 @@
                             <tr>
                             <th>No.</th>
                             <th>Username</th>
-                            <th>Email</th>                     
+                            <th>Email</th>                 
+                            <th>Status</th>    
                             </tr>
                         </thead>
                         <tbody>
@@ -46,6 +47,7 @@
                             <td><?=$no++?></td>
                             <td><?=$row->username?></td>
                             <td><?=$row->email?></td>   
+                            <td><?=$row->status?></td>
                             </tr>                
                             <?php endforeach;?>          
                         </tbody>

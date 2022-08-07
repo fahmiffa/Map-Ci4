@@ -61,13 +61,14 @@ class Home extends BaseController
 
         $data = [
             'username' => $this->request->getPost('username'),
-            'email'   => $this->request->getVar('email'),            
+            'email'   => $this->request->getVar('email'),     
+            'status' => 'user',       
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
         ];
 
         $this->user->insert($data);
 
-        return redirect()->back()->with('info', '<p class="text-white">Pendaftaran Berhasil, Silahkan hubungi admin untuk aktifkan akun</p>');
+        return redirect()->back()->with('info', '<p class="text-white">Pendaftaran Berhasil</p>');
 
 
     }
@@ -105,7 +106,8 @@ class Home extends BaseController
     
                 $newdata = [
                     'username'  => $user->username,
-                    'email'     => $user->email,                    
+                    'email'     => $user->email,        
+                    'status'    => $user->status,            
                     'is_loggedIn' => true,
                 ];
                 
