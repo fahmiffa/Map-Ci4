@@ -13,7 +13,7 @@
           <img src="<?=base_url('assets/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block"><?=session()->username?></a>
         </div>
       </div>
 
@@ -40,12 +40,14 @@
               <p>Map</p>
             </a>
           </li>
+          <?php if(session()->status == 'admin') {?>
           <li class="nav-item">
             <a href="<?=base_url('dashboard/user')?>" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>User</p>
             </a>
           </li>
+          <?php } ?>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

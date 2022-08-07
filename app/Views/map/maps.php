@@ -49,7 +49,9 @@
                             <td><?=$row['nama']?></td>
                             <td><?=$row['koordinat']?></td>
                             <td>
+                              <?php if(session()->status == 'admin') {?>
                                 <button data-id="<?=$row['id']?>" class="btn-danger btn-sm del"><i class="nav-icon fas fa-trash"></i></button>
+                              <?php } ?>  
                                 <a href="<?=base_url('dashboard/edit-map/'.$row['id'])?>" class="btn btn-success btn-sm"><i class="nav-icon fas fa-edit"></i></a>
                             </td>
                           </tr>    

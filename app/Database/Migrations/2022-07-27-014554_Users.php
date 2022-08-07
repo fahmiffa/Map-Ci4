@@ -30,6 +30,11 @@ class Users extends Migration
                 'constraint'=> '100',
                 'null' => false,
             ],
+            'status'=>[
+                'type'=>'ENUM',
+                'constraint'=>['admin','user'],
+                'null'=>true,
+            ],
             'created_at'=> [
                 'type'=> 'DATETIME',
                 'null' => true,
